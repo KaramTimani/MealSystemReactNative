@@ -14,7 +14,7 @@ function MealsOverviewScreen({ route, navigation }) {
         const categoryTitle = CATEGORIES.find((category) =>
             category.id === catId).title;
         navigation.setOptions({
-            title: categoryTitle
+            title: categoryTitle,headerTitleAlign:"center"
         });
 
 
