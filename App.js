@@ -9,6 +9,7 @@ import { ScreenStackHeaderRightView } from 'react-native-screens';
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import FavoritesScreen from "./screen/FavoritesScreen";
 import { Ionicons } from "@expo/vector-icons";
+import FavoritesContextProvider from './store/context/favorites-context';
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 function DrawerNavigator() {
@@ -39,13 +40,14 @@ function DrawerNavigator() {
 
       />
       <Drawer.Screen name="Favorites" component={FavoritesScreen}
-        options={{ headerTitleAlign: "center"
-        , drawerIcon: ({ focused, size }) => <Ionicons
-        name="star"
-        color={focused ? '#351401' : 'white'}
-        size={size} />
-      
-      }}
+        options={{
+          headerTitleAlign: "center"
+          , drawerIcon: ({ focused, size }) => <Ionicons
+            name="star"
+            color={focused ? '#351401' : 'white'}
+            size={size} />
+
+        }}
 
       />
 
@@ -58,31 +60,32 @@ export default function App() {
   return (
     <>
       <StatusBar style='light' />
-      <NavigationContainer>
-        <Stack.Navigator screenOptions={{
-          headerStyle: { backgroundColor: "#351401" },
-          headerTintColor: "white",
-          contentStyle: { backgroundColor: "#3f2f25" }
-        }}>
+      <FavoritesContextProvider>
+        <NavigationContainer>
+          <Stack.Navigator screenOptions={{
+            headerStyle: { backgroundColor: "#351401" },
+            headerTintColor: "white",
+            contentStyle: { backgroundColor: "#3f2f25" }
+          }}>
 
-          <Stack.Screen name="Drawer" component={DrawerNavigator}
-            options={{ headerShown: false, headerTitleAlign: "center" }}
-          />
-          <Stack.Screen name="MealsOverView" component={MealsOverviewScreen}
+            <Stack.Screen name="Drawer" component={DrawerNavigator}
+              options={{ headerShown: false, headerTitleAlign: "center" }}
+            />
+            <Stack.Screen name="MealsOverView" component={MealsOverviewScreen}
 
-          />
-          <Stack.Screen name="MealDetailScreen"
-            component={MealDetailScreen}
-            options={{ title: "About the Meal", headerTitleAlign: "center" }}
+            />
+            <Stack.Screen name="MealDetailScreen"
+              component={MealDetailScreen}
+              options={{ title: "About the Meal", headerTitleAlign: "center" }}
 
 
 
-          />
+            />
 
-        </Stack.Navigator>
+          </Stack.Navigator>
 
-      </NavigationContainer>
-
+        </NavigationContainer>
+      </FavoritesContextProvider>
     </>
   );
 }
